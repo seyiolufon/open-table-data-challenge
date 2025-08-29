@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kafka-test
+  namespace: default
+spec:
+  restartPolicy: Never
+  containers:
+    - name: kafka-test
+      image: imajeetyadav/pyspark-stream:v8
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          echo "Ready. Use: python /opt/spark-app/app/kafka_producer.py or /opt/spark-app/app/kafka_consumer.py" && \
+          sleep 3600
+      env:
+      - name: KAFKA_BOOTSTRAP
+        value: "kafka-service:9092"
+      - name: JAVA_HOME
+        value: "/opt/bitnami/java"
+      - name: HOME
+        value: "/tmp"
+      resources:
+        requests:
+          memory: "256Mi"
+          cpu: "250m"
+        limits:
+          memory: "512Mi"
+          cpu: "500m"
