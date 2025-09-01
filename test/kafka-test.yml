@@ -7,7 +7,7 @@ spec:
   restartPolicy: Never
   containers:
     - name: kafka-test
-      image: imajeetyadav/pyspark-stream:v8
+      image: seyiolufon/py-spark:latest
       command: ["/bin/sh", "-c"]
       args:
         - |
