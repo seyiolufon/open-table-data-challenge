@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kafka-create-topic
+  namespace: default
+spec:
+  backoffLimit: 0
+  completions: 1
+  parallelism: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: kafka-topic-creator
+          image: seyiolufon/py-spark:latest
+          command: ["python"]
+          args: ["/opt/spark-app/app/create_topics.py"]
+          env:
+            - name: KAFKA_BOOTSTRAP
+              value: "kafka-service:9092"
